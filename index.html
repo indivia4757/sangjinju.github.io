@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주상진 | Mobile Developer Portfolio</title>
+<style>
+  :root {
+    --primary: #0f172a;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --surface: #1e293b;
+    --surface-light: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --gradient-start: #3b82f6;
+    --gradient-end: #8b5cf6;
+    --card-border: #334155;
+    --tag-bg: rgba(59,130,246,0.15);
+    --tag-text: #93c5fd;
+    --green-bg: rgba(34,197,94,0.12);
+    --green-text: #86efac;
+    --purple-bg: rgba(139,92,246,0.12);
+    --purple-text: #c4b5fd;
+    --orange-bg: rgba(251,146,60,0.12);
+    --orange-text: #fdba74;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--primary);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(15,23,42,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--card-border);
+    z-index: 100;
+    padding: 0 2rem;
+  }
+  nav .inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  nav .logo {
+    font-size: 1.1rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  nav .links { display: flex; gap: 1.5rem; }
+  nav .links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; transition: color 0.2s;
+  }
+  nav .links a:hover { color: var(--text); }
+  .hamburger { display: none; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--text-muted);
+    margin: 5px 0; transition: 0.3s;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; right: -30%;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30%; left: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 780px; text-align: center; position: relative; }
+  .hero-label {
+    display: inline-block;
+    background: var(--tag-bg); color: var(--tag-text);
+    padding: 0.35rem 1rem; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.03em; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem; color: var(--text-muted);
+    margin-bottom: 2rem; line-height: 1.8;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats .stat-num {
+    font-size: 2rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-stats .stat-label {
+    font-size: 0.78rem; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: #fff; padding: 0.75rem 2rem; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(59,130,246,0.3);
+  }
+
+  /* Core competencies */
+  .competencies {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    justify-content: center; margin-top: 2rem;
+  }
+  .comp-tag {
+    background: var(--surface); border: 1px solid var(--card-border);
+    padding: 0.3rem 0.85rem; border-radius: 8px;
+    font-size: 0.78rem; color: var(--text-muted); font-weight: 500;
+  }
+
+  /* Sections */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    display: inline-block;
+    background: var(--tag-bg); color: var(--tag-text);
+    padding: 0.3rem 0.85rem; border-radius: 999px;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .section-desc {
+    color: var(--text-muted); font-size: 0.95rem;
+    max-width: 650px; margin-bottom: 3rem;
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 1.5rem;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .skill-card h3 {
+    font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-card .icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; background: var(--tag-bg);
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    background: var(--tag-bg); color: var(--tag-text);
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 500;
+  }
+  .tag.green { background: var(--green-bg); color: var(--green-text); }
+  .tag.purple { background: var(--purple-bg); color: var(--purple-text); }
+  .tag.orange { background: var(--orange-bg); color: var(--orange-text); }
+
+  /* Featured project (full width) */
+  .featured-project {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--accent);
+  }
+  .featured-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: #fff; padding: 0.2rem 0.7rem; border-radius: 6px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .featured-project h3 {
+    font-size: 1.35rem; font-weight: 700; margin-bottom: 0.25rem;
+  }
+  .featured-meta {
+    font-size: 0.85rem; color: var(--accent-light); margin-bottom: 0.5rem;
+  }
+  .featured-desc {
+    font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.8;
+  }
+  .featured-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .featured-col h4 {
+    font-size: 0.82rem; color: var(--accent-light);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 0.6rem; font-weight: 700;
+    padding-bottom: 0.4rem; border-bottom: 1px solid var(--card-border);
+  }
+  .featured-col ul { list-style: none; padding: 0; }
+  .featured-col li {
+    font-size: 0.85rem; color: var(--text-muted);
+    padding: 0.3rem 0; padding-left: 1rem;
+    position: relative; line-height: 1.6;
+  }
+  .featured-col li::before {
+    content: ''; position: absolute;
+    left: 0; top: 0.65rem;
+    width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent);
+  }
+  .featured-col li .sub {
+    display: block; font-size: 0.78rem; color: var(--text-dim);
+    padding-left: 0.5rem; margin-top: 0.1rem;
+  }
+
+  /* Project detail cards */
+  .project-detail {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .project-detail:hover { border-color: var(--accent); }
+  .project-detail-header {
+    padding: 1.75rem 2rem 0;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .project-detail-header .left { flex: 1; min-width: 250px; }
+  .project-detail-header .right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem;
+  }
+  .project-period-badge {
+    font-size: 0.75rem; color: var(--text-dim);
+    font-weight: 600; letter-spacing: 0.04em;
+  }
+  .project-detail-header h3 {
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem;
+  }
+  .project-company-info {
+    font-size: 0.85rem; color: var(--accent-light); margin-bottom: 0.3rem;
+  }
+  .project-summary {
+    font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
+    padding: 0.75rem 2rem;
+  }
+  .stat-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: var(--green-bg); color: var(--green-text);
+    padding: 0.25rem 0.75rem; border-radius: 8px;
+    font-size: 0.78rem; font-weight: 600;
+  }
+  .store-link {
+    font-size: 0.75rem; color: var(--accent-light);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .store-link:hover { color: var(--text); text-decoration: underline; }
+
+  /* Task list inside project */
+  .project-tasks {
+    padding: 0 2rem 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+  }
+  .task-group h4 {
+    font-size: 0.8rem; color: var(--accent-light);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 0.5rem; font-weight: 700;
+    padding-bottom: 0.35rem; border-bottom: 1px solid var(--card-border);
+  }
+  .task-group ul { list-style: none; padding: 0; }
+  .task-group li {
+    font-size: 0.82rem; color: var(--text-muted);
+    padding: 0.25rem 0 0.25rem 1rem;
+    position: relative; line-height: 1.6;
+  }
+  .task-group li::before {
+    content: ''; position: absolute;
+    left: 0; top: 0.6rem;
+    width: 4px; height: 4px;
+    border-radius: 50%; background: var(--accent);
+  }
+  .task-group li .sub {
+    display: block; font-size: 0.75rem; color: var(--text-dim);
+    padding-left: 0.5rem;
+  }
+
+  .project-detail-tags {
+    padding: 0.75rem 2rem 1.5rem;
+    border-top: 1px solid var(--card-border);
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: var(--purple-bg);
+    border-left: 3px solid #8b5cf6;
+    padding: 0.7rem 1rem; border-radius: 0 10px 10px 0;
+    margin: 0.5rem 2rem 1rem;
+    font-size: 0.82rem; color: var(--purple-text);
+  }
+  .highlight-box.green {
+    background: var(--green-bg);
+    border-left-color: #22c55e;
+    color: var(--green-text);
+  }
+  .highlight-box.orange {
+    background: var(--orange-bg);
+    border-left-color: #f97316;
+    color: var(--orange-text);
+  }
+
+  /* Dev environment */
+  .dev-env {
+    padding: 0 2rem 0.5rem;
+    font-size: 0.78rem; color: var(--text-dim);
+  }
+  .dev-env span {
+    display: inline-block; margin-right: 1.5rem;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 7px; top: 0; bottom: 0;
+    width: 2px; background: var(--surface-light);
+  }
+  .timeline-item { position: relative; margin-bottom: 2rem; }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -2rem; top: 0.5rem;
+    width: 12px; height: 12px;
+    border-radius: 50%; background: var(--accent);
+    border: 3px solid var(--primary);
+  }
+  .timeline-item.current::before {
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.3);
+  }
+  .timeline-period {
+    font-size: 0.78rem; color: var(--accent-light);
+    font-weight: 600; margin-bottom: 0.15rem;
+  }
+  .timeline-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.1rem; }
+  .timeline-role { font-size: 0.85rem; color: var(--text-muted); }
+  .timeline-detail { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.15rem; }
+
+  /* Education card */
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .edu-card h3 {
+    font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .edu-card .icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; background: var(--tag-bg);
+  }
+  .edu-card p { color: var(--text-muted); font-size: 0.85rem; }
+
+  /* Strengths */
+  .strengths-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .strength-item {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+  }
+  .strength-item h4 {
+    font-size: 0.92rem; font-weight: 700; margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .strength-item p {
+    font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    text-decoration: none; color: var(--text);
+    transition: border-color 0.3s;
+  }
+  .contact-card:hover { border-color: var(--accent); }
+  .contact-card .label {
+    font-size: 0.75rem; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+  }
+  .contact-card .value { font-size: 0.95rem; font-weight: 600; }
+
+  footer {
+    text-align: center; padding: 2.5rem 2rem;
+    border-top: 1px solid var(--card-border);
+    font-size: 0.8rem; color: var(--text-dim);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav .links { display: none; }
+    nav .links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 60px; left: 0; right: 0;
+      background: rgba(15,23,42,0.95);
+      padding: 1rem 2rem; gap: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .hamburger { display: block; }
+    .hero-stats { gap: 1.5rem; }
+    .hero-stats .stat-num { font-size: 1.5rem; }
+    .featured-cols { grid-template-columns: 1fr; }
+    .project-tasks { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .strengths-grid { grid-template-columns: 1fr; }
+    .project-detail-header { flex-direction: column; }
+    .project-detail-header .right { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="inner">
+    <div class="logo">JSJ.dev</div>
+    <button class="hamburger" onclick="document.querySelector('.links').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#career">Career</a>
+      <a href="#strengths">Strengths</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="about">
+  <div class="hero-content">
+    <div class="hero-label">Android &middot; Flutter &middot; Mobile PL</div>
+    <h1>안녕하세요,<br><span class="gradient">주상진</span>입니다.</h1>
+    <p class="subtitle">
+      14년차 모바일 개발자로서 금융&middot;보안&middot;해외송금 도메인에서<br>
+      Android/Flutter 기반 앱을 설계, 개발, 운영해 왔습니다.<br>
+      안정적인 서비스 구조와 사용자 경험을 최우선으로 생각합니다.
+    </p>
+    <div class="hero-stats">
+      <div><div class="stat-num">14+</div><div class="stat-label">Years Exp.</div></div>
+      <div><div class="stat-num">10+</div><div class="stat-label">Projects</div></div>
+      <div><div class="stat-num">80만+</div><div class="stat-label">Users</div></div>
+    </div>
+    <a href="#projects" class="hero-cta">프로젝트 보기 &darr;</a>
+    <div class="competencies">
+      <span class="comp-tag">팀장/PL 관리 경험</span>
+      <span class="comp-tag">Flutter 크로스플랫폼</span>
+      <span class="comp-tag">금융 서비스 운영</span>
+      <span class="comp-tag">NFC/APDU 단말 연동</span>
+      <span class="comp-tag">보안 인증(USIM/PKI)</span>
+      <span class="comp-tag">AI 업무 자동화</span>
+      <span class="comp-tag">영어 소통 가능</span>
+      <span class="comp-tag">CC인증/특허 획득</span>
+      <span class="comp-tag">앱스토어 3위 달성</span>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title">기술 역량</h2>
+    <p class="section-desc">6개 회사, 10+ 프로젝트에서 실무로 검증된 기술 스택입니다.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F4F1;</span> Mobile Native</h3>
+        <div class="tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Java</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">Android SDK</span>
+          <span class="tag">Objective-C</span>
+          <span class="tag">Swift</span>
+          <span class="tag">LiveData</span>
+          <span class="tag">Flavor</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F3AF;</span> Cross-Platform</h3>
+        <div class="tags">
+          <span class="tag">Flutter</span>
+          <span class="tag">Dart</span>
+          <span class="tag">Riverpod</span>
+          <span class="tag">Provider</span>
+          <span class="tag">dio</span>
+          <span class="tag">intl/l10n</span>
+          <span class="tag">sqflite</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F310;</span> Networking &amp; API</h3>
+        <div class="tags">
+          <span class="tag">Retrofit</span>
+          <span class="tag">OkHttp</span>
+          <span class="tag">RxJava</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Socket</span>
+          <span class="tag">NFC/APDU</span>
+          <span class="tag">Sendbird</span>
+          <span class="tag">JSON</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F512;</span> Security &amp; Auth</h3>
+        <div class="tags">
+          <span class="tag">USIM PKI</span>
+          <span class="tag">BiometricPrompt</span>
+          <span class="tag">AIDL</span>
+          <span class="tag">AES256</span>
+          <span class="tag">ProGuard</span>
+          <span class="tag">allatori</span>
+          <span class="tag">ISMS</span>
+          <span class="tag">CC인증</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F6E0;</span> DevOps &amp; Tools</h3>
+        <div class="tags">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">GitLab</span>
+          <span class="tag">Bitbucket</span>
+          <span class="tag">JIRA</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">SVN</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Zeplin</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="icon">&#x1F916;</span> AI &amp; Automation</h3>
+        <div class="tags">
+          <span class="tag">Claude API</span>
+          <span class="tag">Claude Code</span>
+          <span class="tag">Python 3.11</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">APScheduler</span>
+          <span class="tag">OneSignal</span>
+          <span class="tag">Lokalise</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" style="background: rgba(30,41,59,0.3);">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">주요 프로젝트</h2>
+    <p class="section-desc">실무에서 설계부터 운영까지 직접 담당한 프로젝트들입니다. 이력서 및 포트폴리오 전체 내용을 반영하였습니다.</p>
+
+    <!-- ==================== 1. GME Remit (Featured) ==================== -->
+    <div class="featured-project">
+      <div class="featured-badge">Current &middot; Featured</div>
+      <h3>GME Remit &mdash; 해외송금 서비스 앱</h3>
+      <div class="featured-meta">
+        글로벌머니익스프레스 &middot; IT팀 파트장 &middot; 2025.02 ~ 현재 &middot;
+        매출 299억 / 100여명 &middot;
+        <a class="store-link" href="https://play.google.com/store/apps/details?id=com.gmeremit.online.gmeremittance_native&hl=ko" target="_blank">Google Play &nearr;</a>
+        &middot; 출시일 2018.10.30
+      </div>
+      <p class="featured-desc">
+        해외송금 앱의 Android 네이티브 개발 및 모바일(iOS/Android) 파트 관리를 담당하고 있습니다.
+        Retrofit/RxJava 기반 API 통신, NFC 카드 연동, 다국어 OTA, Firebase Crashlytics 운영, 마켓 정책 대응,
+        그리고 Claude API 기반 AI 업무 자동화 도구 개발까지 폭넓게 수행 중입니다.
+        외국인 개발자들과 영어로 소통하며 프로젝트를 리딩하고 있습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>OS:</strong> macOS Sonoma</span>
+        <span><strong>도구:</strong> Android Studio, Claude, Lokalise, Overflow, Zeplin, Bitbucket, JIRA, CodeRabbit</span>
+        <span><strong>언어:</strong> Dart, Java, Kotlin, Groovy</span>
+      </div>
+      <div class="featured-cols">
+        <div class="featured-col">
+          <h4>1. 해외송금 앱 개발 및 운영</h4>
+          <ul>
+            <li>모바일 개발(iOS, Android) 파트 업무 관리</li>
+            <li>Retrofit, RxJava, LiveData 기반 Restful API 통신</li>
+            <li>EZL 카드 NFC 통신 기능 개발</li>
+            <li>Lokalise API 연동 및 Resource OTA 업데이트
+              <span class="sub">다국어 key 관리 및 실시간 리소스 반영</span>
+            </li>
+            <li>Firebase Crashlytics &middot; 고객 문의 대응</li>
+            <li>Firebase Deeplink 만료 &rarr; Airbridge API 연동</li>
+            <li>Figma, Zeplin 기반 UI/UX 개발 및 개선</li>
+            <li>JIRA 이슈 등록&middot;관리 및 우선순위별 기능 반영</li>
+            <li>외국인 개발자들과 영어 소통 &middot; 프로젝트 관리</li>
+            <li>OneSignal 푸시 알림 서비스 연동 및 운영
+              <span class="sub">세그먼테이션(ExternalID, 최근접속일, 송금일, 국적)</span>
+              <span class="sub">고객 여정 자동화(미접속 기간별 푸시 &middot; 쿠폰 발급)</span>
+            </li>
+            <li>Jetpack Compose 적용을 통한 UI 개편 작업</li>
+          </ul>
+        </div>
+        <div class="featured-col">
+          <h4>2. Flutter 대출 서비스 앱 신규 개발</h4>
+          <ul>
+            <li>Provider 기반 상태 관리 구현</li>
+            <li>dio, http 기반 Restful API 통신</li>
+            <li>intl/l10n + Lokalise 다국어 적용</li>
+            <li>Figma 기반 전체 UI/UX 구현</li>
+          </ul>
+          <h4 style="margin-top:1.5rem;">3. JIRA Ticket Analyzer (AI)</h4>
+          <ul>
+            <li>Claude Code CLI 기반 단독 설계 및 개발</li>
+            <li>Claude API tool use 멀티턴 분석 파이프라인
+              <span class="sub">JIRA 티켓 &rarr; 소스코드 자동 대조 분석</span>
+            </li>
+            <li>4개 이기종 코드베이스(10만+ 파일) 실시간 검색</li>
+            <li>FastAPI SPA 대시보드 + APScheduler 배치</li>
+            <li>근본 원인&middot;수정 방안&middot;영향도 한/영 보고서 자동 생성</li>
+            <li>티켓당 분석 시간: 수 시간 &rarr; 수 분으로 단축</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <div class="tags">
+          <span class="tag">Kotlin</span><span class="tag">Java</span>
+          <span class="tag">Dart</span><span class="tag">Flutter</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">Retrofit</span><span class="tag">RxJava</span>
+          <span class="tag">LiveData</span><span class="tag">NFC</span>
+          <span class="tag">OneSignal</span><span class="tag">Lokalise</span>
+          <span class="tag">Firebase</span><span class="tag">Airbridge</span>
+          <span class="tag green">Python</span><span class="tag green">FastAPI</span>
+          <span class="tag green">Claude API</span><span class="tag green">APScheduler</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 2. 골프홀릭 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2023.12 &mdash; 2024.12 (1년 1개월)</div>
+          <h3>골프홀릭&trade; &mdash; Flutter 골프 부킹 앱</h3>
+          <div class="project-company-info">와이소프트 &middot; 프론트개발팀 팀장(차장) &middot; 매출 7억 / 10여명</div>
+        </div>
+        <div class="right">
+          <a class="store-link" href="https://play.google.com/store/apps/details?id=com.ysoft.golfholic.golfholic&hl=ko" target="_blank">Google Play &nearr;</a>
+          <span class="project-period-badge">출시일 2024.03.17</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        Flutter 기반 골프 부킹 서비스 앱을 처음부터 신규 개발하여 Google Play / App Store에 출시했습니다.
+        Riverpod 상태관리, Sendbird 채팅, 인앱결제, SNS 로그인, FCM 푸시 등 전체 기능을 구현하고,
+        팀장으로서 인력 채용&middot;업무 분배&middot;코드 리뷰&middot;기술 세미나까지 진행했습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>도구:</strong> Android Studio, IntelliJ, GitHub, Postman, Figma</span>
+        <span><strong>언어:</strong> Dart, Java, Swift, Groovy</span>
+      </div>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>앱 개발</h4>
+          <ul>
+            <li>상태 관리: Riverpod, Provider</li>
+            <li>SNS 로그인: Google, Kakao, Naver, Apple</li>
+            <li>FCM Push: flutter_local_notifications</li>
+            <li>Restful API 통신: dio, http</li>
+            <li>Sendbird 채팅 (1:1, 그룹)
+              <span class="sub">채팅방 관리를 위한 데이터 설계</span>
+            </li>
+            <li>Google/Apple 인앱결제: in_app_purchase</li>
+            <li>모든 페이지 UI 및 기능 구현</li>
+            <li>제품 소개 페이지 제작(Flutter)</li>
+            <li>sqflite, SharedPreferences 앱내 데이터 관리
+              <span class="sub">auth_token 등 민감 정보 AES256 암호화</span>
+            </li>
+            <li>Play Store, App Store 배포 및 내부 테스트</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>팀 관리</h4>
+          <ul>
+            <li>인력 채용 및 면접 진행</li>
+            <li>업무 분배 및 일정 관리</li>
+            <li>코드 리뷰 및 기술 세미나</li>
+            <li>GitHub 형상 관리</li>
+            <li>Figma 기반 UI/UX 개발 및 개선</li>
+            <li>OS/마켓별 이슈 대응</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box">팀장으로서 인력 채용부터 마켓 배포까지 전 과정을 주도. 회사 경영악화로 인한 폐업으로 퇴직.</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Flutter</span><span class="tag">Dart</span>
+          <span class="tag">Riverpod</span><span class="tag">Provider</span>
+          <span class="tag">Sendbird</span><span class="tag">In-App Purchase</span>
+          <span class="tag">FCM</span><span class="tag">AES256</span>
+          <span class="tag">sqflite</span><span class="tag">Firebase</span>
+          <span class="tag">GitHub</span><span class="tag">Figma</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 3. USIM 스마트인증 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2018.03 &mdash; 2023.11 (5년 9개월)</div>
+          <h3>USIM 스마트인증 &mdash; 공동인증서 전자서명 앱</h3>
+          <div class="project-company-info">라온시큐어 &middot; 서비스개발팀 프로 &middot; 매출 624억 / 350여명</div>
+        </div>
+        <div class="right">
+          <span class="stat-badge">가입자 56만+</span>
+          <a class="store-link" href="https://play.google.com/store/apps/details?id=com.raonsecure.mobiletoken&hl=ko&gl=US" target="_blank">Google Play &nearr;</a>
+          <span class="project-period-badge">출시일 2014.07.21</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        통신 3사(SKT, KT, LGU+) USIM 기반 공동인증서 전자서명 앱을 5년 9개월간 개발 및 운영했습니다.
+        APDU 통신을 통한 USIM 내 인증서 관리, AIDL 앱간 통신, Flavor 기반 환경 통합, 보안 키패드, 생체인증 등
+        보안 중심의 핵심 기능을 전담 구현했습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>도구:</strong> Android Studio, Visual Studio 2008, MFC, GitLab, SVN, JIRA, Figma</span>
+        <span><strong>언어:</strong> Java, Kotlin, C++</span>
+      </div>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>핵심 기능 개발</h4>
+          <ul>
+            <li>통신사 Agent Applet 연동 라이브러리 적용</li>
+            <li>APDU 통신: USIM 내 인증서 조회/저장/삭제/서명</li>
+            <li>앱내 인증서 관리(SQLite 기반)</li>
+            <li>Restful API 통신(가입 조회/해지, 서명 등)</li>
+            <li>AIDL 앱간 통신(NH 스마트인증, 앱프리)</li>
+            <li>통신사별 분리 앱 &rarr; Flavor 환경 통합</li>
+            <li>생체인증 API (BiometricPrompt, FingerPrint)</li>
+            <li>보안 키패드 적용</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>운영 및 보안</h4>
+          <ul>
+            <li>난독화 적용(allatori, ProGuard)</li>
+            <li>앱 권한, eSIM, OS 버전 이슈 대응</li>
+            <li>Firebase Analytics 트레이스 로그 관리</li>
+            <li>ISMS 인증 취약점 조치 대응</li>
+            <li>앱 사용성 고도화</li>
+            <li>Zeplin, Figma UI/UX 디자인 반영</li>
+            <li>GitLab 형상 관리</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box green">가입자 56만+ &middot; 통신 3사 USIM 인증 전담 &middot; ISMS 인증 취약점 대응</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Kotlin</span>
+          <span class="tag">APDU</span><span class="tag">AIDL</span>
+          <span class="tag">BiometricPrompt</span><span class="tag">SQLite</span>
+          <span class="tag">Flavor</span><span class="tag">allatori</span>
+          <span class="tag">ProGuard</span><span class="tag">Firebase</span>
+          <span class="tag">GitLab</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 4. 모비싸인 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2018.03 &mdash; 2023.11 (라온시큐어 재직 중)</div>
+          <h3>모비싸인 &mdash; 공동인증서 전자서명 앱</h3>
+          <div class="project-company-info">라온시큐어 &middot; 서비스개발팀</div>
+        </div>
+        <div class="right">
+          <span class="stat-badge">가입자 24만+</span>
+          <a class="store-link" href="https://play.google.com/store/apps/details?id=com.pilot&hl=ko&gl=US" target="_blank">Google Play &nearr;</a>
+          <span class="project-period-badge">출시일 2011.04.25</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        금융결제원 보안 라이브러리 기반 공동인증서 앱을 개발/운영했습니다.
+        국민은행, 홈택스, 정부24 등 10개 주요 공공기관에 MFC 전자서명 프로그램을 적용했습니다.
+      </p>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>Android 앱 개발</h4>
+          <ul>
+            <li>Activity, Fragment UI 및 기능 개발</li>
+            <li>금융결제원 보안 라이브러리 연동</li>
+            <li>앱/서버 내 인증서 관리(SQLite)</li>
+            <li>Restful API 통신(가입, 조회/해지, 서명)</li>
+            <li>난독화(allatori, ProGuard)</li>
+            <li>보안 키패드 적용</li>
+            <li>생체인증(BiometricPrompt, FingerPrint)</li>
+            <li>ISMS 인증 취약점 조치 대응</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>MFC 전자서명 프로그램</h4>
+          <ul>
+            <li>Dialog UI 및 기능 개발</li>
+            <li>PKI 솔루션 &ndash; Replay 서버 간 중계 기능</li>
+            <li>dll 빌드 및 배포</li>
+            <li style="color: var(--green-text);">적용: 국민은행, 홈택스, 정부24, 이파인, 서울시ETAX, 공공아이핀, 국민신문고, LH청약, 서울주택도시공사, 형사사법포털</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box">가입자 24만+ &middot; 10개 공공기관 적용 (국민은행, 홈택스, 정부24 등)</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Kotlin</span>
+          <span class="tag">C++</span><span class="tag">MFC</span>
+          <span class="tag">PKI</span><span class="tag">SQLite</span>
+          <span class="tag">Firebase</span><span class="tag">GitLab</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 5. USIM 간편인증 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2018.03 &mdash; 2023.11 (라온시큐어 재직 중)</div>
+          <h3>USIM 간편인증 서비스 &mdash; 단말 인증 라이브러리</h3>
+          <div class="project-company-info">라온시큐어 &middot; 서비스개발팀</div>
+        </div>
+        <div class="right">
+          <span class="stat-badge">행정안전부, 부산은행, NH</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        USIM Serial Number(UICCID)를 활용한 간편인증 서비스 라이브러리를 개발했습니다.
+        사용자 인증정보에 USIM 고유정보를 추가하여 본인 명의 단말 소지를 보장하는 인증 체계를 구현했습니다.
+        MO(Mobile Originated) 서비스를 통한 단말 등록 및 인증 기능을 포함합니다.
+      </p>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>라이브러리 개발</h4>
+          <ul>
+            <li>통신 3사 Agent Applet으로 USIM Serial Number(UICCID) 추출</li>
+            <li>라이브러리 개발 및 고객사 대응</li>
+            <li>MO 인증: FCM/APNS Token 기반 단말 등록</li>
+            <li>MO 인증 사용 가이드 제공 및 VOC 대응</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>서비스 구조</h4>
+          <ul>
+            <li>앱 설치 시 MO 서비스 번호로 Token SMS 발송</li>
+            <li>전화번호 + Token 저장으로 단말 등록</li>
+            <li>인증 시 등록 정보 대조로 단말 인증</li>
+            <li>MO 인증 VOC 지원 앱 개발</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box green">고객사: 행정안전부, 부산은행, NH 등 &middot; 통신 3사 USIM 연동</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">USIM</span>
+          <span class="tag">APDU</span><span class="tag">FCM</span>
+          <span class="tag">APNS</span><span class="tag">MO Service</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 5.5. 서비스 관리자 콘솔 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2018.03 &mdash; 2023.11 (라온시큐어 재직 중)</div>
+          <h3>서비스 관리자 콘솔 페이지</h3>
+          <div class="project-company-info">라온시큐어 &middot; 서비스개발팀</div>
+        </div>
+      </div>
+      <p class="project-summary">
+        USIM 스마트인증 / 모비싸인 / 간편인증 서비스를 위한 관리자 콘솔 웹 페이지 프론트엔드를 개발했습니다.
+      </p>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">JavaScript</span><span class="tag">Bootstrap</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 6. CompleteWipe ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2016.09 &mdash; 2018.02 (1년 6개월)</div>
+          <h3>CompleteWipe for Android &mdash; 데이터 완전삭제 앱</h3>
+          <div class="project-company-info">알티씨 &middot; 연구개발실 대리 &middot; 종업원 10여명</div>
+        </div>
+        <div class="right">
+          <a class="store-link" href="https://play.google.com/store/apps/details?id=com.senorms.bite&hl=ko&gl=US" target="_blank">Google Play &nearr;</a>
+          <span class="project-period-badge">출시일 2014.06.11</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        Android 기기의 데이터를 완전히 삭제하는 보안 앱을 신규 개발했습니다.
+        개발 지원 소프트웨어와 함께 Google Play에 출시했습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>도구:</strong> Android Studio, Delphi7, SVN, FireBird</span>
+        <span><strong>언어:</strong> Java, Delphi, C++</span>
+      </div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Android</span>
+          <span class="tag">Delphi</span><span class="tag">C++</span>
+          <span class="tag">SVN</span><span class="tag">FireBird</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 7. SOFOS Coding ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2013.08 &mdash; 2016.09 (3년 2개월)</div>
+          <h3>SOFOS Coding &mdash; 시큐어코딩 솔루션</h3>
+          <div class="project-company-info">한컴위드 &middot; SC개발팀 대리 &middot; 매출 57억 / 45여명</div>
+        </div>
+      </div>
+      <p class="project-summary">
+        소스코드 정적 분석을 통해 보안약점을 탐지하고 제거하도록 가이드하는 시큐어코딩 솔루션의 핵심 엔진을 개발했습니다.
+        데이터트랙 기반 분석 방식으로 특허를 획득하고, CC(Common Criteria) 인증을 취득했습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>도구:</strong> Eclipse, Visual Studio 2013, Pyscripter, Azure, SVN, Jenkins, JavaCC, Wix, Tomcat, Mantis, PostgreSQL, H2DB, Redmine</span>
+        <span><strong>언어:</strong> Java, Python, C++</span>
+      </div>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>엔진 개발</h4>
+          <ul>
+            <li>Java, C/C++, Android, Objective-C, ABAP 언어 분석 엔진</li>
+            <li>Java, Objective-C, C#, ABAP 보안약점 검출 엔진</li>
+            <li>데이터트랙 기반 코드 분석 방식으로 특허 획득</li>
+            <li>Wix 기반 설치 소프트웨어 개발</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>CC 인증</h4>
+          <ul>
+            <li>공동평가기준(Common Criteria) 인증 획득</li>
+            <li>보안목표명세서, TOE 설계서 작성</li>
+            <li>준비절차서, 운영설명서, 배포절차서 작성</li>
+            <li>형상관리문서, 시험서 작성 및 공동시험</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box orange">특허 획득 (데이터트랙 기반 분석) &middot; CC(Common Criteria) 인증 취득</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Python</span>
+          <span class="tag">C++</span><span class="tag">JavaCC</span>
+          <span class="tag">Jenkins</span><span class="tag">Wix</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Azure</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 8. 사이버 침입탐지 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2013.08 &mdash; 2016.09 (한컴위드 재직 중)</div>
+          <h3>사이버 침입탐지 분석 시스템</h3>
+          <div class="project-company-info">한컴위드 &middot; SC개발팀</div>
+        </div>
+      </div>
+      <p class="project-summary">
+        멀웨어(악성코드) 분석 및 보고서 생성 시스템을 병렬화하여 DB로 관리하는 시스템을 개발했습니다.
+        웹 크롤러를 통한 악성코드 수집부터 Cuckoo Sandbox 기반 자동 분석까지 전체 파이프라인을 구현했습니다.
+      </p>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>개발 내용</h4>
+          <ul>
+            <li>웹 크롤러 개발 (악성코드 수집)</li>
+            <li>웹 크롤러 &ndash; Cuckoo Sandbox 간 TCP 통신 모듈</li>
+            <li>악성코드 연동 에이전트 개발</li>
+            <li>Cuckoo Sandbox 분석 시스템 적용</li>
+            <li>Cuckoo Sandbox 설치 가이드 작성</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>시스템 구조</h4>
+          <ul>
+            <li>악성코드 배양 모듈</li>
+            <li>침입탐지 모듈</li>
+            <li>분석 보고서 자동 생성</li>
+            <li>병렬화된 DB 관리 체계</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">C++</span>
+          <span class="tag">TCP Socket</span><span class="tag">Cuckoo Sandbox</span>
+          <span class="tag">Web Crawler</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 9. WinCE 네비게이션 ==================== -->
+    <div class="project-detail">
+      <div class="project-detail-header">
+        <div class="left">
+          <div class="project-period-badge">2011.04 &mdash; 2013.07 (2년 4개월)</div>
+          <h3>아틀란 네비게이션 &mdash; WinCE / Android / iOS</h3>
+          <div class="project-company-info">맵퍼스 &middot; 개발B팀 &middot; 매출 92억 / 130여명</div>
+        </div>
+        <div class="right">
+          <span class="stat-badge">앱스토어 3위 달성</span>
+        </div>
+      </div>
+      <p class="project-summary">
+        WinCE PND(Personal Navigation Device)와 모바일(Android/iOS) 네비게이션 소프트웨어를 개발했습니다.
+        주행화면 UI, 경로 통신 모듈, 3D 렌더링 포팅, 소켓 통신 등 시스템 레벨 기능을 담당했습니다.
+        iOS 버전은 애플 앱스토어 네비게이션 카테고리 3위를 달성했습니다.
+      </p>
+      <div class="dev-env">
+        <span><strong>도구:</strong> Visual Studio 2008, MFC, Eclipse, Xcode, WinSocket, CVS, Mantis</span>
+        <span><strong>언어:</strong> C++, Objective-C, Java</span>
+      </div>
+      <div class="project-tasks">
+        <div class="task-group">
+          <h4>WinCE 네비게이션</h4>
+          <ul>
+            <li>아틀란 Wiz, 3D V3 주행화면 UI 개발
+              <span class="sub">각 페이지, 컨트롤별 기능 구현</span>
+            </li>
+            <li>아틀란 3D V3, PLUS 주행정보 표시 기능</li>
+            <li>아틀란 PLUS 경로정보 소켓 통신 모듈
+              <span class="sub">단말 버전, Android 버전 통신 모듈</span>
+            </li>
+            <li>UI Script 작업 툴 유지보수</li>
+            <li>MFC 기반 테스트 소프트웨어 개발</li>
+          </ul>
+        </div>
+        <div class="task-group">
+          <h4>모바일 네비게이션</h4>
+          <ul>
+            <li>아틀란 3D(Android) 앱 UI 및 기능 개발</li>
+            <li>아틀란-클라우드내비(iOS) 앱 개발
+              <span class="sub">애플 앱스토어 네비게이션 3위 달성</span>
+            </li>
+            <li>SmartCloud3DA(Android 3D) 개발
+              <span class="sub">3D 드로우 모듈 포팅</span>
+            </li>
+            <li>안전운전 정보 모듈 개발</li>
+            <li>JSON 소켓 통신 모듈 개발</li>
+            <li>Xcode Instruments 메모리 누수 검출</li>
+            <li>Mantis 기반 이슈 관리</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box orange">애플 앱스토어 네비게이션 카테고리 3위 달성 &middot; WinCE/Android/iOS 3개 플랫폼 개발</div>
+      <div class="project-detail-tags">
+        <div class="tags">
+          <span class="tag">C++</span><span class="tag">Objective-C</span>
+          <span class="tag">Java</span><span class="tag">MFC</span>
+          <span class="tag">WinCE</span><span class="tag">Socket</span>
+          <span class="tag">Xcode</span><span class="tag">CVS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Career Timeline -->
+<section id="career">
+  <div class="container">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">경력 타임라인</h2>
+    <p class="section-desc">6개 회사에서 쌓아온 총 14년 6개월의 모바일 개발 여정입니다.</p>
+    <div class="timeline">
+      <div class="timeline-item current">
+        <div class="timeline-period">2025.02 ~ 현재</div>
+        <div class="timeline-title">글로벌머니익스프레스</div>
+        <div class="timeline-role">IT팀 파트장 &middot; 해외송금 앱 개발 &middot; Flutter 대출 앱 신규 개발 &middot; AI 자동화 도구 개발</div>
+        <div class="timeline-detail">매출 299억 / 100여명 &middot; Kotlin, Java, Dart, Flutter</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-period">2023.12 ~ 2024.12 (1년 1개월)</div>
+        <div class="timeline-title">와이소프트</div>
+        <div class="timeline-role">프론트개발팀 팀장(차장) &middot; Flutter 골프부킹 앱 신규 개발 &middot; 인력 채용 &middot; 팀 관리</div>
+        <div class="timeline-detail">매출 7억 / 10여명 &middot; Dart, Java, Swift</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-period">2018.03 ~ 2023.11 (5년 9개월)</div>
+        <div class="timeline-title">라온시큐어</div>
+        <div class="timeline-role">서비스개발팀 프로 &middot; USIM 스마트인증(56만) &middot; 모비싸인(24만) &middot; 간편인증 &middot; MFC 전자서명 &middot; 관리자 콘솔</div>
+        <div class="timeline-detail">매출 624억 / 350여명 &middot; Java, Kotlin, C++</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-period">2016.09 ~ 2018.02 (1년 6개월)</div>
+        <div class="timeline-title">알티씨</div>
+        <div class="timeline-role">연구개발실 대리 &middot; CompleteWipe 데이터 완전삭제 앱 신규 개발</div>
+        <div class="timeline-detail">종업원 10여명 &middot; Java, Delphi, C++</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-period">2013.08 ~ 2016.09 (3년 2개월)</div>
+        <div class="timeline-title">한컴위드</div>
+        <div class="timeline-role">SC개발팀 대리 &middot; SOFOS Coding(특허+CC인증) &middot; 사이버 침입탐지 시스템</div>
+        <div class="timeline-detail">매출 57억 / 45여명 &middot; Java, Python, C++</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-period">2011.04 ~ 2013.07 (2년 4개월)</div>
+        <div class="timeline-title">맵퍼스</div>
+        <div class="timeline-role">개발B팀 &middot; 아틀란 네비게이션 WinCE/Android/iOS &middot; 앱스토어 3위</div>
+        <div class="timeline-detail">매출 92억 / 130여명 &middot; C++, Objective-C, Java</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section style="background: rgba(30,41,59,0.3);">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">학력 &amp; 교육</h2>
+    <div style="margin-top:1.5rem;">
+      <div class="edu-card">
+        <h3><span class="icon">&#x1F393;</span> 한세대학교</h3>
+        <p>정보통신공학과 학사 졸업 (GPA 3.8 / 4.5) &middot; 2005.03 ~ 2011.02</p>
+      </div>
+      <div class="edu-card">
+        <h3><span class="icon">&#x1F6E1;</span> K-Shield 최정예 사이버보안 교육과정</h3>
+        <p>한국인터넷진흥원 &middot; SW 취약점 분석 및 모의해킹 (패킷분석, 디컴파일, 후킹 등) &middot; 2016.04 ~ 2016.12</p>
+      </div>
+      <div class="edu-card">
+        <h3><span class="icon">&#x1F4BB;</span> Client/Server Expert 과정</h3>
+        <p>비트교육센터 &middot; UNIX System, WinCE Programming, Win32 API 등 &middot; 2010.10 ~ 2011.04</p>
+      </div>
+      <div class="edu-card">
+        <h3><span class="icon">&#x1F5A5;</span> Windows Networking 고급과정</h3>
+        <p>비트교육센터 &middot; COM/ActiveX, MFC, WNP, Windows System Programming &middot; 2009.03 ~ 2009.08</p>
+      </div>
+      <div class="edu-card">
+        <h3><span class="icon">&#x1F30F;</span> 영어 커뮤니케이션</h3>
+        <p>비즈니스 영어 회화 가능 &middot; 외국인 개발자와 영어로 소통하며 프로젝트 리딩 경험 &middot; Written &amp; verbal communication</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Strengths -->
+<section id="strengths">
+  <div class="container">
+    <div class="section-label">Strengths</div>
+    <h2 class="section-title">강점</h2>
+    <p class="section-desc">14년간의 실무에서 자연스럽게 형성된 핵심 강점입니다.</p>
+    <div class="strengths-grid">
+      <div class="strength-item">
+        <h4>팀 리더십 &amp; 관리 경험</h4>
+        <p>팀장, 모바일 개발 PL 경험을 통한 인력 채용, 업무 분배, 코드 리뷰, 기술 세미나 진행. 기획자&middot;디자이너와 원활한 소통을 통한 협업.</p>
+      </div>
+      <div class="strength-item">
+        <h4>크로스플랫폼 개발</h4>
+        <p>Flutter를 통한 Android/iOS 동시 개발 및 마켓 출시 경험. WinCE, Android, iOS 3개 플랫폼 네비게이션 개발 경험.</p>
+      </div>
+      <div class="strength-item">
+        <h4>금융 서비스 안정성</h4>
+        <p>금융 서비스 장애 대응 및 안정화 경험. 금융결제원, 통신 3사, 금융사(농협, 부산은행 등)와 업무 협업 경험. ISMS 보안 인증 대응.</p>
+      </div>
+      <div class="strength-item">
+        <h4>보안 전문 지식</h4>
+        <p>시큐어코딩 솔루션 신규 개발로 다양한 보안 약점 이해. CC(Common Criteria) 인증 획득. K-Shield 최정예 사이버보안 교육 수료.</p>
+      </div>
+      <div class="strength-item">
+        <h4>다국어 &amp; 글로벌 소통</h4>
+        <p>외국인 개발자들과 영어로 소통하며 앱 개발 및 프로젝트 리딩. 비즈니스 이메일 및 독해 가능. Written &amp; verbal communication.</p>
+      </div>
+      <div class="strength-item">
+        <h4>AI 업무 자동화</h4>
+        <p>Claude API 기반 JIRA Ticket Analyzer 단독 설계/개발. 분석 시간을 수 시간에서 수 분으로 단축. AI 도구를 활용한 개발 프로세스 혁신.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" style="background: rgba(30,41,59,0.3);">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">연락처</h2>
+    <p class="section-desc">프로젝트 협업이나 문의는 아래 채널로 연락해 주세요.</p>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:indivia4757@gmail.com">
+        <div class="label">Email</div>
+        <div class="value">indivia4757@gmail.com</div>
+      </a>
+      <div class="contact-card">
+        <div class="label">Phone</div>
+        <div class="value">010-3871-4757</div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Location</div>
+        <div class="value">인천광역시 서구</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 주상진. Built with passion for mobile development.
+</footer>
+
+</body>
+</html>
