@@ -450,6 +450,64 @@
     font-size: 0.8rem; color: var(--text-dim);
   }
 
+  /* Project screenshots */
+  .project-screenshots {
+    padding: 0.75rem 2rem 1rem;
+  }
+  .screenshot-gallery {
+    display: flex; gap: 0.75rem; overflow-x: auto;
+    padding: 0.5rem 0; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .screenshot-gallery::-webkit-scrollbar { height: 4px; }
+  .screenshot-gallery::-webkit-scrollbar-track { background: var(--surface-light); border-radius: 2px; }
+  .screenshot-gallery::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+  .screenshot-gallery img {
+    max-height: 280px; width: auto;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .screenshot-gallery img:hover {
+    transform: scale(1.02);
+    border-color: var(--accent);
+  }
+  .screenshot-gallery .wide-img {
+    max-height: 220px; width: auto; max-width: 100%;
+  }
+  .featured-screenshots {
+    margin-top: 1.25rem;
+  }
+  .featured-screenshots .screenshot-gallery img {
+    max-height: 300px;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 92vw; max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 0 60px rgba(59,130,246,0.2);
+  }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 2rem;
+    background: none; border: none;
+    color: #fff; font-size: 2rem;
+    cursor: pointer; opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
   /* Responsive */
   @media (max-width: 768px) {
     nav .links { display: none; }
@@ -682,6 +740,11 @@
           </ul>
         </div>
       </div>
+      <div class="featured-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/gme-remit.png" alt="GME Remit 앱 스크린샷" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div style="margin-top:1rem;">
         <div class="tags">
           <span class="tag">Kotlin</span><span class="tag">Java</span>
@@ -751,6 +814,11 @@
           </ul>
         </div>
       </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/golf-holic.png" alt="골프홀릭 앱 스크린샷" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div class="highlight-box">팀장으로서 인력 채용부터 마켓 배포까지 전 과정을 주도. 회사 경영악화로 인한 폐업으로 퇴직.</div>
       <div class="project-detail-tags">
         <div class="tags">
@@ -814,6 +882,11 @@
           </ul>
         </div>
       </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/usim-smart.png" alt="USIM 스마트인증 앱 스크린샷" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div class="highlight-box green">가입자 56만+ &middot; 통신 3사 USIM 인증 전담 &middot; ISMS 인증 취약점 대응</div>
       <div class="project-detail-tags">
         <div class="tags">
@@ -869,6 +942,12 @@
           </ul>
         </div>
       </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/mobisign.png" alt="모비싸인 앱 스크린샷" onclick="openLightbox(this)">
+          <img src="images/mfc-sign.png" alt="MFC 전자서명 프로그램" class="wide-img" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div class="highlight-box">가입자 24만+ &middot; 10개 공공기관 적용 (국민은행, 홈택스, 정부24 등)</div>
       <div class="project-detail-tags">
         <div class="tags">
@@ -915,6 +994,13 @@
             <li>인증 시 등록 정보 대조로 단말 인증</li>
             <li>MO 인증 VOC 지원 앱 개발</li>
           </ul>
+        </div>
+      </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/usim-simple-auth.png" alt="USIM 간편인증 아키텍처" class="wide-img" onclick="openLightbox(this)">
+          <img src="images/usim-mo-service.png" alt="MO 서비스 단말 인증" class="wide-img" onclick="openLightbox(this)">
+          <img src="images/usim-clients.png" alt="USIM 간편인증 고객사" class="wide-img" onclick="openLightbox(this)">
         </div>
       </div>
       <div class="highlight-box green">고객사: 행정안전부, 부산은행, NH 등 &middot; 통신 3사 USIM 연동</div>
@@ -968,6 +1054,11 @@
         <span><strong>도구:</strong> Android Studio, Delphi7, SVN, FireBird</span>
         <span><strong>언어:</strong> Java, Delphi, C++</span>
       </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/completewipe.png" alt="CompleteWipe 앱 스크린샷" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div class="project-detail-tags">
         <div class="tags">
           <span class="tag">Java</span><span class="tag">Android</span>
@@ -1014,6 +1105,11 @@
           </ul>
         </div>
       </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/sofos-coding.png" alt="SOFOS Coding 시큐어코딩 솔루션" class="wide-img" onclick="openLightbox(this)">
+        </div>
+      </div>
       <div class="highlight-box orange">특허 획득 (데이터트랙 기반 분석) &middot; CC(Common Criteria) 인증 취득</div>
       <div class="project-detail-tags">
         <div class="tags">
@@ -1057,6 +1153,11 @@
             <li>분석 보고서 자동 생성</li>
             <li>병렬화된 DB 관리 체계</li>
           </ul>
+        </div>
+      </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/cyber-detect.png" alt="사이버 침입탐지 시스템 아키텍처" class="wide-img" onclick="openLightbox(this)">
         </div>
       </div>
       <div class="project-detail-tags">
@@ -1119,6 +1220,12 @@
             <li>Xcode Instruments 메모리 누수 검출</li>
             <li>Mantis 기반 이슈 관리</li>
           </ul>
+        </div>
+      </div>
+      <div class="project-screenshots">
+        <div class="screenshot-gallery">
+          <img src="images/navi-wince.png" alt="아틀란 WinCE 네비게이션" class="wide-img" onclick="openLightbox(this)">
+          <img src="images/navi-mobile.png" alt="아틀란 모바일 네비게이션" class="wide-img" onclick="openLightbox(this)">
         </div>
       </div>
       <div class="highlight-box orange">애플 앱스토어 네비게이션 카테고리 3위 달성 &middot; WinCE/Android/iOS 3개 플랫폼 개발</div>
@@ -1273,6 +1380,28 @@
 <footer>
   &copy; 2026 주상진. Built with passion for mobile development.
 </footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(el) {
+  var lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = el.src;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
 
 </body>
 </html>
